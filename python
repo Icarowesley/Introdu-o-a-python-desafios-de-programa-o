@@ -1,0 +1,120 @@
+# ============================================
+# 💻 UNIDADE: Introdução a Python — Desafios de Programação
+# ============================================
+
+# --------------------------------------------
+# Funções auxiliares
+# --------------------------------------------
+
+def calcular_imc():
+    print("\n🔹 Desafio 1 — Calculando o IMC")
+    peso = float(input("Digite seu peso (kg): "))
+    altura = float(input("Digite sua altura (m): "))
+    imc = peso / (altura ** 2)
+    print(f"Seu IMC é: {imc:.2f}")
+    if imc < 18.5:
+        print("Classificação: Abaixo do peso.")
+    elif imc < 25:
+        print("Classificação: Peso normal.")
+    elif imc < 30:
+        print("Classificação: Sobrepeso.")
+    else:
+        print("Classificação: Obesidade.")
+    print("--------------------------------------------")
+
+
+def verificar_habilitacao():
+    print("\n🔹 Desafio 2 — Verificar se o usuário pode dirigir")
+    idade = int(input("Digite sua idade: "))
+    if idade >= 18:
+        print("Você pode dirigir! 🚗")
+    else:
+        print("Você ainda não pode dirigir. ⛔")
+    print("--------------------------------------------")
+
+
+def calcular_desconto():
+    print("\n🔹 Desafio 3 — Calcular desconto de compra")
+    valor = float(input("Digite o valor da compra: R$ "))
+    if valor > 500:
+        desconto = valor * 0.20
+    elif valor >= 200:
+        desconto = valor * 0.10
+    else:
+        desconto = valor * 0.05
+    valor_final = valor - desconto
+    print(f"Desconto aplicado: R${desconto:.2f}")
+    print(f"Valor final da compra: R${valor_final:.2f}")
+    print("--------------------------------------------")
+
+
+def calcular_media(notas):
+    """Retorna a média das notas"""
+    return sum(notas) / len(notas)
+
+
+def verificar_situacao(media):
+    """Retorna a situação do aluno"""
+    if media >= 7:
+        return "Aprovado"
+    elif media >= 5:
+        return "Recuperação"
+    else:
+        return "Reprovado"
+
+
+def sistema_notas():
+    print("\n🔹 Desafio 4 e 5 — Sistema de Notas (com funções e refatoração)")
+    nome = input("Digite o nome do aluno: ")
+    notas = []
+    for i in range(3):
+        nota = float(input(f"Digite a nota {i+1}: "))
+        notas.append(nota)
+
+    media = calcular_media(notas)
+    situacao = verificar_situacao(media)
+
+    print("\n📘 Resultado Final")
+    print(f"Aluno: {nome}")
+    print(f"Média: {media:.2f}")
+    print(f"Situação: {situacao}")
+    print("--------------------------------------------")
+
+
+# --------------------------------------------
+# Menu principal
+# --------------------------------------------
+
+def menu():
+    while True:
+        print("\n============================================")
+        print("🧠 UNIDADE: Introdução a Python — Desafios de Programação")
+        print("============================================")
+        print("1 - Calcular IMC (variáveis e operadores)")
+        print("2 - Verificar se pode dirigir (estruturas condicionais)")
+        print("3 - Calcular desconto de compra (estratégias de solução)")
+        print("4 - Sistema de Notas (funções e modularização)")
+        print("5 - Sair")
+        print("============================================")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            calcular_imc()
+        elif opcao == "2":
+            verificar_habilitacao()
+        elif opcao == "3":
+            calcular_desconto()
+        elif opcao == "4":
+            sistema_notas()
+        elif opcao == "5":
+            print("Encerrando o programa... 👋")
+            break
+        else:
+            print("Opção inválida. Tente novamente!")
+
+
+# --------------------------------------------
+# Execução do programa
+# --------------------------------------------
+menu()
