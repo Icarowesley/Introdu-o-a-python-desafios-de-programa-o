@@ -1,0 +1,90 @@
+# ==========================================
+# 📊 Ciência de Dados com Python - Alura
+# ==========================================
+
+# 1️⃣ Importação das bibliotecas
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# ==========================================
+# 2️⃣ Coleta de dados (simulação de formulário)
+# Suponha que você criou um formulário Google Forms com perguntas como:
+# Nome, Idade, Cidade, Nota em Matemática, Nota em Português
+# Vamos criar um conjunto de dados fictício (como se viesse do Forms)
+# ==========================================
+
+dados = {
+    "Nome": ["Ana", "Bruno", "Carla", "Diego", "Eduarda", "Felipe", "Giovana", "Heitor"],
+    "Idade": [17, 16, 18, 17, 16, 18, 17, 16],
+    "Cidade": ["São Paulo", "Rio de Janeiro", "Curitiba", "São Paulo", "Recife", "Recife", "Curitiba", "São Paulo"],
+    "Nota_Matematica": [8.5, 7.0, 9.0, 6.5, 7.5, 8.0, 9.5, 6.0],
+    "Nota_Portugues": [9.0, 6.5, 8.0, 7.5, 7.0, 8.5, 9.0, 6.5]
+}
+
+df = pd.DataFrame(dados)
+
+# Exibe as primeiras linhas
+print("📋 Dados coletados:")
+print(df.head())
+
+# ==========================================
+# 3️⃣ Salvar e publicar tabela em formato CSV
+# ==========================================
+df.to_csv("dados_estudantes.csv", index=False)
+print("\n✅ Tabela salva como 'dados_estudantes.csv'")
+
+# ==========================================
+# 4️⃣ Estatísticas descritivas
+# ==========================================
+print("\n📈 Estatísticas descritivas:")
+print(df.describe())
+
+# Média das notas
+media_matematica = df["Nota_Matematica"].mean()
+media_portugues = df["Nota_Portugues"].mean()
+print(f"\n📊 Média Matemática: {media_matematica:.2f}")
+print(f"📊 Média Português: {media_portugues:.2f}")
+
+# ==========================================
+# 5️⃣ Visualização dos dados com gráficos
+# ==========================================
+
+# Gráfico de barras: notas por aluno
+plt.figure(figsize=(8,4))
+sns.barplot(data=df, x="Nome", y="Nota_Matematica", color="skyblue", label="Matemática")
+sns.barplot(data=df, x="Nome", y="Nota_Portugues", color="orange", alpha=0.6, label="Português")
+plt.title("Notas por aluno")
+plt.legend()
+plt.show()
+
+# Gráfico de dispersão: correlação entre as duas notas
+plt.figure(figsize=(6,4))
+sns.scatterplot(data=df, x="Nota_Matematica", y="Nota_Portugues", hue="Cidade", s=100)
+plt.title("Correlação entre Matemática e Português")
+plt.show()
+
+# ==========================================
+# 6️⃣ Comparando com base externa (simulada)
+# ==========================================
+# Base externa: média nacional das notas
+media_nacional = pd.DataFrame({
+    "Disciplina": ["Matemática", "Português"],
+    "Média_Nacional": [7.2, 7.5]
+})
+
+# Tabela comparando as médias
+comparativo = pd.DataFrame({
+    "Disciplina": ["Matemática", "Português"],
+    "Média_Turma": [media_matematica, media_portugues],
+}).merge(media_nacional, on="Disciplina")
+
+print("\n📊 Comparativo com média nacional:")
+print(comparativo)
+
+# Gráfico comparativo
+plt.figure(figsize=(6,4))
+sns.barplot(data=comparativo.melt(id_vars="Disciplina"), x="Disciplina", y="value", hue="variable")
+plt.title("Comparativo: Turma x Média Nacional")
+plt.ylabel("Média das Notas")
+plt.show()
